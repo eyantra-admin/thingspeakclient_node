@@ -46,7 +46,22 @@ Changing the mode and the timeout values:
 var client = new ThingSpeakClient({useTimeoutMode:false}); - disable client timeout handling between update request per channel
 var client = new ThingSpeakClient({updateTimeout:20000}); - set the timeout to 20s (Note: 15 seconds is the default value), the timeout value is in milliseconds
 ```
+### create a channel on thingspeak
+Attaching a channel is required if you want update a channel. If you want only read channels (private or public) it is not necessary to attach the channel. But attaching makes read-handling
+easier. The attach method needs the channel-id and a write- or readkey or both for this channel. The ```callBack``` is optional.
 
+create a channel, apikey is required
+```
+client.createChannel(1, { 'api_key':'youraccountapikey'}, callBack);
+```
+create a channel, apikey is required, other optional fields
+```
+client.createChannel(1, { 'api_key':'youraccountapikey', 'name':'channelname', 'field1':'type1','field2':'type2'.....}, callBack);
+```
+Attach a channel with only a key for reading:
+```
+client.attachChannel(channelId, { readKey:'yourReadKey'}, callBack);
+```
 ### Attach a channel to the client
 Attaching a channel is required if you want update a channel. If you want only read channels (private or public) it is not necessary to attach the channel. But attaching makes read-handling
 easier. The attach method needs the channel-id and a write- or readkey or both for this channel. The ```callBack``` is optional.
