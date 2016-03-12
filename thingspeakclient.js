@@ -47,7 +47,59 @@ var ThingSpeakClient = function(opts) {
 };
 
 util.inherits(ThingSpeakClient, events.EventEmitter);
+/**
+ * create a single channel with field-values
+ * @param id
+ * @param fields
+ * @param callback
+ */
+ThingSpeakClient.prototype.createChannel = function(name, fields, callback) {
+    var self = this;
+    var url = self.options.server + '/channels';
+    var data;
 
+    if (_.isFunction(name)) {
+        // no id is given - id is a callback
+        id(new Error('no channel name given for create'));
+        return;
+    }
+
+    if (_.isFunction(fields)) {
+        // no fields given - fields is a callback
+        fields(new Error('no fields given for create'));
+        return;
+    }
+
+    if (!_.isObject(fields)) {
+        if (_.isFunction(callback)) {
+            callback(new Error('fields for create channel not an object'));
+        }
+        return;
+    } else {
+        data = fields;
+    }
+    
+    /*if (self.options.useTimeoutMode) {
+        self.channels[name].updateQueue.push({
+            id: name,
+            url: url,
+            form: data,
+            cB: callback
+        });
+    } else {*/  //disabling the late update
+        request.post({
+            url: url,
+            form: data,
+        }, function(err, response, body) {
+            if ((!err) && (body > 0)) {
+                callback(response, body);
+            }
+            if (_.isFunction(callback)) {
+                callback(err, body);
+            }
+        });
+    //}
+};
 /**
  * add a new channel to the client
  * @param channelId
