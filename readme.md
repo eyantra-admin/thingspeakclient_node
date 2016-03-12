@@ -58,9 +58,6 @@ create a channel, apikey is required, other optional fields
 ```
 client.createChannel(1, { 'api_key':'youraccountapikey', 'name':'channelname', 'field1':'type1','field2':'type2'.....}, callBack);
 ```
-Attach a channel with only a key for reading:
-```
-client.attachChannel(channelId, { readKey:'yourReadKey'}, callBack);
 ```
 ### Attach a channel to the client
 Attaching a channel is required if you want update a channel. If you want only read channels (private or public) it is not necessary to attach the channel. But attaching makes read-handling
