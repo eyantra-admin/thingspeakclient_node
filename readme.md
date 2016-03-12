@@ -47,8 +47,7 @@ var client = new ThingSpeakClient({useTimeoutMode:false}); - disable client time
 var client = new ThingSpeakClient({updateTimeout:20000}); - set the timeout to 20s (Note: 15 seconds is the default value), the timeout value is in milliseconds
 ```
 ### create a channel on thingspeak
-Attaching a channel is required if you want update a channel. If you want only read channels (private or public) it is not necessary to attach the channel. But attaching makes read-handling
-easier. The attach method needs the channel-id and a write- or readkey or both for this channel. The ```callBack``` is optional.
+Creating a channel is requied if you dynamicall wants to create a channel. The ```callBack``` is optional.
 
 create a channel, apikey is required
 ```
